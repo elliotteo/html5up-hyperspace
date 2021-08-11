@@ -1,0 +1,77 @@
+---
+title: "Financial Data visualisation"
+author: "Elliot"
+date: "05/05/2020"
+output: html_document
+---
+
+```{r Package import, echo=TRUE, include=FALSE}
+library(quantmod)
+library(xts)
+library(rvest)
+library(tidyverse)
+library(stringr)
+library(forcats)
+library(lubridate)
+library(plotly)
+library(dplyr)
+library(PerformanceAnalytics)
+
+time <- Sys.time()
+```
+
+# Aim
+This document contains the exploratory analysis of the MQG stock as of 2020-05-12 08:45:57. The intention is to show basic visualisation techniques to better assess trades.
+
+
+```{r Import and visualise the data, echo=TRUE}
+# Use the get symbols function to extract the 
+symbol <- "MQG.AX"
+
+getSymbols(symbol, src = "yahoo")
+
+# basic example of ohlc charts (MQG.AX is the autoassigned name of the timeseries)
+df <- data.frame(Date=index(MQG.AX),coredata(MQG.AX))
+
+# Use plotly to create an interactive candlestick plot for a broad view of the stock price since 2007.
+CSplot <- plot_ly(data = df, x = ~Date, type="candlestick",open = ~MQG.AX.Open, close = ~MQG.AX.Close, high = ~MQG.AX.High, low = ~MQG.AX.Low) 
+
+print(CSplot)
+```
+
+Playing with the rangeslider shows that pre covid the market trended up about 3 days to each decline. There has recently been two big gains in a row likely due to news of easing government restrictions. Interestingly, we can also see the activity that occured during the GFC in 2008. The stock price bottomed out in the 2nd quarter of 2009 after 3 bear market rallies.
+
+
+We could decompose a timeseries to try and understand if this stock is subject to a predicatble variation on the order of days. Though this particular dataset is incompatible with the decompose algorithm as it doesn not contain more than two periods. Thismean sit does not adhere to the assumption that there are predicible high frequency fluctuations to exploit with metronomics. Instead we could use a technique that does not assume stationarity over time. 
+
+##Bollinger Band Chart
+
+The moving average is important to understanding Maquarie Groups’s technical charts. It smoothes out daily price fluctuations by averaging stock prices and is effective in identifying potential trends.
+
+The Bollinger Band chart plots two standard deviations away from the moving average and is used to measure the stock’s volatiliy. The Volume chart shows how its stocks are traded on the daily. The Moving Average Convergence Divergence gives technical analysts buy/sell signals. The rule of thumb is: If it falls below the line, it is time to sell. If it rises above the line, it is experiencing an upward momentum.
+
+The charts above are usually used to decide whether to buy/sell a stock. Since I am not a certified financial analyst, I decided to do additional research to convince myself.
+
+This chart shows that the Bollinger bands are set to 20 day moving average and 2 standard deviations from the mean.
+
+```{r Some Deeper insights}
+#decomp <- decompose(MQG.AX$MQG.AX.Adjusted)
+post_2012 <- subset(MQG.AX, start = `2012-01-01`)
+
+#decomp <- decompose(post_2012)
+
+MQG_log_returns <- MQG.AX %>% Ad() %>% dailyReturn(type='log')
+
+# Plot the adusted returns
+MQG.AX%>%Ad()%>%chartSeries()
+
+#Bollinger Band chart, % Bollinger change, Volume Traded and Moving Average Convergence Diverence in 2019 alone:
+MQG.AX%>%chartSeries(TA='addBBands();addVo();addMACD()',subset='2020')
+```
+
+The sharp upward trend experienced yesterday is due to the news of relaxing restrictions and not due to true value increase, unsuitable for a buy. If it is a short term gain to be made, quick sell and buy in the next dip may be profitable.
+
+
+```{r Session info, echo=TRUE}
+sessionInfo()
+```

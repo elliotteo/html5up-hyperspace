@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Generic - Hyperspace by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<header id="header">
+		<a href="index.html" class="title">Proteomics</a>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="background.html">HIE</a></li>
+				<li><a href="proteomics.html" class="active"> Proteomics analysis</a></li>
+				<li><a href="proteomics_methods.html"> Methods</a></li>
+				<li><a href="proteomics_discussion.html"> Discussion </a></li>
+				<li><a href="proteomics_MD_full.html">R Markdown</a></li>
+				<li><a href="https://proteomesci.biomedcentral.com/">Link to publication</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Proteomics analysis of piglet brain</h1>
+				<a href="https://proteomesci.biomedcentral.com/" class="active"> Full manuscript under review at Proteome </a>
+				<span class="image fit"><img src="images/pic04.jpg" alt="" /></span>
+				<p>Background: Evidence has shown that combined hypothermia therapy (HTH) and stem cell therapy (SC) is superior to HTH alone. In the wider literature, stem cell treatment in the absence of HTH has been associated with various mechanisms,
+					including angiogenesis, improved remyelination, reduction in oxidative stress, and neurotrophic
+					effects in rodent and sheep hypoxic-ischaemic encephalopathy (HIE) models. It is widely accepted that stem cells owe their broad therapeutic effects to their many secreted factors, the effects most of which have not been systematically
+					examined. Thus, it’s unlikely that I have identified the full list of therapeutic effects of stem cell therapies in HIE.</p>
+				<hr>
+				<blockquote>Objective: To quantify the whole brain proteome and use data-driven statistical inference to generate a list of possible therapeutic mechanisms. </blockquote>
+				<hr>
+				<p>Methods: The whole brain tissue was digested from the parasagittal region of the premotor cortex of 8-day old piglets. Each sample underwent information independent acquisition to generate a comprehensive peptide ion library. Brain protein
+					expression was compared between HI injured piglets with combined HTH+SC treatment (HHS) and HI injured piglets that received HTH alone (HHV). A group of 5 age matched control piglets were included as a healthy biological comparison.</p>
+
+				<figure>
+					<center><img src="images/proteomics/Methods.png" width="500" alt="Methods">
+						<figcaption>Figure 1.(Left) Library was constructed using 3 pooled samples from 24 piglets. Venn diagram indicates the numbers of unique and non-unique proteins discovered between groups. (Right) Swath analysis was performed on 17
+							samples. 1916 unique proteins were identified and 30 proteins were found to be significantly altered.</figcaption>
+				</figure>
+				<hr />
+				<h2> SWATH analysis </h2>
+				<p>
+					A total of 1916 proteins, all with greater than 99% confidence, were mapped in all piglets individually. These proteins were exported to PeakView for quantitation and further exported to R for group comparison and additional
+					analysis. Following the removal of incomplete data, 1733 proteins remained. Pearson correlation coefficients were calculated to assess the variance between duplicate samples, these ranged between 0.9979 and 0.9989. Due to the high
+					correlation between replicates, the remaining analysis was performed with the mean protein level between the two duplicate runs. The differences between groups are described below. The histograms of the frequency of p values for the
+					different comparisons are shown in (Figure 1 A-C). Groups did not cluster completely using principal component analysis (Figure 2A). PCA plots were then used to examine the potential for confounding factors such as Litter, Sex
+					and Seizure presence. Piglets did not cluster according to these variables using the first two principal components and were therefore not included in the statistical models (Figure 2 B-D).
+				</p>
+
+				<figure>
+					<center><img src="images/proteomics/phist.png" width="1000" alt="P value histograms between comparisons">
+						<figcaption>Figure 2: Distribution of p values for each comparison. A) Comparison of HHV vs P8 contains 105 significant proteins. B) Comparison between HHS versus P8 contains 8 significant proteins; and C) comparison between HHV and HHS
+							contains 32 significant proteins. </figcaption>
+</figure>
+						<figure>
+							<center><img src="images/proteomics/pc.png" width="800" alt="Principl components analysis plots">
+								<figcaption>Figure 3: Exploration of possible confounding factors by principal components analysis. None of the factors investigated appeared to affect the data. Abbreviations: HHV: hypoxic-ischemic, hypothermia treated,
+									vehicle-treated; HHS: hypoxic-ischemic, hypothermia treated, stem cell-treated.</figcaption>
+</figure>
+								<hr />
+
+								<figure>
+									<center><img src="images/proteomics/heatmap.png" width="700" alt="Heatmap of significantly altered proteins">
+										<figcaption>Figure 4: A) Heat map represents the fold change of the 30 differentially expressed proteins between HHV and HHS groups in all piglets. The colour represents the centered and scaled level of protein. Piglet numbers
+											arranged with hierarchical clustering using the McQuitty method and rows using Pearson distance. B) Volcano plot illustrates a global reduction in identified proteins. C) Using the differentially expressed proteins to compute
+											the PCA does not allow for linear separation in 2-dimensions. Abbreviations: HHV: hypoxic-ischemic, hypothermia treated, vehicle-treated; HHS: hypoxic-ischemic, hypothermia treated, stem cell-treated.</figcaption>
+								</figure>
+								<hr />
+
+								<h2> Multiple comparisons </h2>
+								<h2>P8 vs HHV</h2>
+								<p>
+									P8 and HHV groups showed significant differences in the MS response signal of 130 proteins, 98 of these showed > 0.5 log2fold change. 96 were upregulated in the HHV group and 2 were down regulated in the HHV group. Top 50
+									significant proteins are shown in table 2.
+
+								<figure>
+									<center><img src="images/proteomics/table 1.png" width="700" alt="Table of significantly altered proteins P8 vs HHV comparrison.">
+										<figcaption>Table 1. Top 50 significant proteins with a log2 fold change greater than 0.5 and a p-value of less than 0.1. </figcaption>
+								</figure>
+
+								</p>
+								<h2 style="text-align:left">P8 vs HHS</h2>
+								<p style="text-align:left">
+									P8 and HHS groups showed significant differences in the MS response signal of 2 proteins. Both significant proteins were found to be downregulated in the HHS compared to HHV.
+								</p>
+								<h2 style="text-align:left">HHV vs HHS </h2>
+								<p style="text-align:left">
+									HHS and HHV groups showed significant differences in the MS response signal of 32 proteins, 30 of these showed > 0.5 log2fold change (Table 2). All significant proteins were found to be downregulated in the HHS compared to HHV.
+								</p>
+
+								<figure>
+									<center><img src="images/proteomics/Table2.png" width="700" alt="Table of significantly altered proteins P8 vs HHV comparrison.">
+										<figcaption>Table 2: 30 significant proteins with a log2 fold change greater than 0.5 and a p-value of less than 0.1. </figcaption>
+								</figure>
+								<hr />
+
+								<h2>Pathway analysis:</h2>
+								<p>
+									HHV vs HHS
+									Proteins with p < 0.1 change in expression and a log2 fold change> 0.5 were further analysed using over-representation analysis using the Gene Ontology and the Reactome databases. The decision was made to relax the statistical
+										threshold from 0.05 to 0.1 because of the number of proteins < 0.05 was insufficient in many instances to return enriched pathways. Given that the study aimed to identify novel therapeutic mechanisms, I thought it was appropriate
+											to accept an increased chance of false-positive results in exchange for a more extensive list of candidate mechanisms that can be systematically evaluated in future studies. The Reactome pathway database analysis showed
+											apoptosis, programmed cell death, and a reduction in cell cycle-associated events, including Cyclin E associate events during G1/s phase transition, Cyclin A: Cdk2-associated events at S phase entry and G1/S phase transition
+											were enriched (Figure 6). Protein-concept network plot reveals downregulation of all the component proteins. Top enriched pathways within the gene ontology enrichment were NIK/NF-kappa B signalling, axon extension and cellular
+											component size, tumour necrosis factor-mediated signalling pathway and Wnt signalling (Figure 6). Concept network plot reveals net negative changes in all the component proteins in these pathways. </p>
+
+
+											<div class="image123">
+												<div class="imgContainer">
+													<img src="images/proteomics/Reactome.png" style="float: left; margin-right: 1%; margin-bottom: 0.5em;" width="550" />
+													<img class="middle-img" src="images/proteomics/reactome1.png" style="float: left; margin-right: 1%; margin-bottom: 0.5em;" width="550" />
+													<p style="clear: both;">
+													<figcaption>Figure 6: (Left) Protein enrichment analysis from the Gene Ontology (GO) database. Protein concept network shows the component proteins in the top enriched pathways and the log2fold change associated.
+														(Right) Protein enrichment analysis from the Reactome database. Protein concept network shows the component proteins in the top enriched pathways, and the log2 fold change associated. </figcaption>
+
+						</figure>
+						</img>
+						</img>
+			</div>
+	</div>
+
+
+	<hr />
+	<h2>Conclusion</h2>
+	<p>
+		While not without its limitations, this study indicates several therapeutic mechanisms, including anti-apoptotic effect and anti-inflammatory effect, as well as reductions in Wnt signalling and cytoskeletal activity in HTH+SC treated piglets
+		therapy versus hypothermia alone. Wnt signalling has not been reported to be altered in stem cell-hypothermia combined therapies to treat HIE. The effect of stem cells on Wnt signalling and cytoskeletal regulation represent novel therapeutic
+		mechanisms not reported previously in the literature as a mechanism of stem cell therapy and merits validation in future investigations.
+	</p>
+
+
+	</div>
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; Untitled. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

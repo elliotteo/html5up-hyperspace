@@ -1,0 +1,204 @@
+---
+title: "Piglet 2334"
+output: word_document
+output: html_document
+---
+## Piglet physiological analysis
+
+This document contains a summary of the animals physiological parameters whilst under anaesthesia. The data was acquired using the Marquette data acquisition system from X. Data was sampled at 12 samples per minute for the parameters of:
+
+Umbilical artery pressure
+Heart rate
+End-Tidal CO2
+Oxygen saturation
+
+This document is intended to provide information about the stability of the piglet throughout the experiment.
+
+
+Experimental details:
+
+Piglet number: 2334
+Sex: Male
+HI commenced at :12:00
+HI ended at:12:30
+Infusion commenced:
+Cell Dose : None (vehicle)
+HTH commenced at: 14:30 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+##Load appropriate packages, set working directory and load datafile ----
+library(ggplot2)
+library(lubridate)
+library(readr)
+
+# Set working directory
+setwd("C:/Users/ellio/Downloads/html5up-hyperspace/Directory")
+
+data <- read_csv("2334RP_r.csv")
+
+```
+
+
+```{r, include=FALSE}
+# Change time format
+colnames(data)[2] <- "Hours"
+data <- data[-c(1:500),]
+x <- data[500,2] 
+
+# zero time 
+data$Hours <- data$Hours - x
+
+
+HI_HTH <- data[c(360:1080),]
+colnames(HI_HTH)[2] <- "Minutes"
+HI_HTH[2] <- HI_HTH$Minutes * 1/60
+
+rec <- HI_HTH[c(360:1080),]
+HI <- HI_HTH[c(1:360),]
+
+data$Hours <- data$Hours * 1/3600 
+
+# Remove the other variables ----
+keeps <- c("Time of Day", "Hours","ECG_hr", "BP1_mean", "BP1_syst", "BP1_dias", "Temp_1", "CO2_et", "SPO2_sat")
+data <- data[keeps] 
+
+# Remove every nth row to smooth the data
+tokeep <- seq(1, nrow(data), 200)
+data <- data[tokeep, ]
+
+HI_HTH <- HI_HTH[tokeep, ]
+
+
+## Create a filter mechanisms to remove artefacts ----
+#Filter ----
+HI$BP1_mean[HI$BP1_mean <= 5 | HI$BP1_mean >= 80 | HI$BP1_mean == HI$BP1_dias |HI$BP1_mean == HI$BP1_syst ] <- NA
+HI$BP1_syst[HI$BP1_syst <= 20 | HI$BP1_syst >= 150] <- NA
+HI$BP1_dias[HI$BP1_dias <= 5 | HI$BP1_dias >= 80 | HI$BP1_dias >= HI$BP1_syst] <- NA
+HI$ECG_hr[HI$ECG_hr <= 50 | HI$ECG_hr >= 300] <- NA
+HI$SPO2_sat[HI$SPO2_sat <= 0 | HI$SPO2_sat >= 100] <- NA
+HI$CO2_et[HI$CO2_et <= 5 | HI$CO2_et >= 80] <- NA
+HI <- na.omit(HI)
+
+rec$BP1_mean[rec$BP1_mean <= 5 | rec$BP1_mean >= 80 | rec$BP1_mean == rec$BP1_dias |rec$BP1_mean == rec$BP1_syst ] <- NA
+rec$BP1_syst[rec$BP1_syst <= 20 | rec$BP1_syst >= 150] <- NA
+rec$BP1_dias[rec$BP1_dias <= 5 | rec$BP1_dias >= 80 | rec$BP1_dias >= rec$BP1_syst] <- NA
+rec$ECG_hr[rec$ECG_hr <= 50 | rec$ECG_hr >= 300] <- NA
+rec$SPO2_sat[rec$SPO2_sat <= 0 | rec$SPO2_sat >= 100] <- NA
+rec$CO2_et[rec$CO2_et <= 5 | rec$CO2_et >= 80] <- NA
+rec <- na.omit(rec)
+
+data$BP1_mean[data$BP1_mean <= 5 | data$BP1_mean >= 80 | data$BP1_mean == data$BP1_dias |data$BP1_mean == data$BP1_syst ] <- NA
+data$BP1_syst[data$BP1_syst <= 20 | data$BP1_syst >= 150] <- NA
+data$BP1_dias[data$BP1_dias <= 5 | data$BP1_dias >= 80 | data$BP1_dias >= data$BP1_syst] <- NA
+data$ECG_hr[data$ECG_hr <= 50 | data$ECG_hr >= 300] <- NA
+data$SPO2_sat[data$SPO2_sat <= 0 | data$SPO2_sat >= 100] <- NA
+data$CO2_et[data$CO2_et <= 5 | data$CO2_et >= 80] <- NA
+data <- na.omit(data)
+
+```
+
+```{r}
+#Aquire summary of the cardiovascular statistics 
+
+
+# Period of HI
+summary(HI$ECG_hr)
+summary(HI$BP1_mean)
+summary(HI$BP1_syst)
+summary(HI$BP1_dias)
+
+## Period of recovery 
+summary(rec$ECG_hr)
+summary(rec$BP1_mean)
+summary(rec$BP1_syst)
+summary(rec$BP1_dias)
+
+# Period of HTH
+summary(data$ECG_hr)
+summary(data$BP1_mean)
+summary(data$BP1_syst)
+summary(data$BP1_dias)
+
+
+```
+
+
+```{r}
+
+data <- unlist(data)
+
+## Filtered HR 
+ggplot(data, aes(x = Hours, y = ECG_hr)) + 
+  geom_line() +
+  labs(title = "Piglet 2334: Heart rate over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "Heart rate (bpm)")
+
+
+## Filtered HR 
+ggplot(data, aes(x = Hours, y = ECG_hr)) + 
+  geom_line() +
+  labs(title = "Piglet 2334: Heart rate over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "Heart rate (bpm)")
+
+## Filtered Sats
+ggplot(data, aes(x = Hours, y = SPO2_sat)) + 
+  geom_line() +
+  labs(title = "Piglet 2334: Oxygen saturation over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "O2 ssaturation")
+
+## Filtered CO2 
+ggplot(data, aes(x = Hours, y = CO2_et)) + 
+  geom_line() +
+  labs(title = "Piglet 2334: End-tidal carbon dioxide over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "End-Tidal CO2 (mmHg)")
+
+```
+
+```{r}
+## Filtered BP 
+ggplot(data, aes(Hours)) + 
+  geom_rect(aes(ymin = 0, ymax = 100, xmin = 2.000, xmax = 26.000),  alpha = 0.2,fill = "blue") + #Period of hypothermia
+  geom_rect(aes(ymin = 0, ymax = 100, xmin = 26.000, xmax = 36.000)) + #Period of rewarming 
+  geom_rect(aes(ymin = 0, ymax = 100, xmin = -0.5, xmax = 0), fill = 'orange') + # Period of HI
+  geom_ribbon(aes (ymin = BP1_dias, ymax = BP1_syst))+
+  geom_line(aes (y = BP1_mean, colour="#FF9999")) +
+  
+  #geom_tile(aes(fill = rescale),----
+# High potential to make a heat map that mirros the temperature in the backdround or as a rug along the bottom
+
+#+     colour = "white") + scale_fill_gradient(low = "white",
+#+     high = "steelblue"))
+
+  labs(title = "Piglet 2334: Blood pressure over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "Blood Pressure (mmHg)")
+
+  
+
+```
+```{r}
+## Filtered BP 
+ggplot(HI_HTH, aes(Minutes)) + 
+  geom_rect(aes(ymin = 0, ymax = 100, xmin = 30, xmax = 60), fill = 'orange', alpha = 0.6) + # Period of HI
+  geom_ribbon(aes (ymin = BP1_dias, ymax = BP1_syst))+
+  geom_line(aes (y = BP1_mean, colour="#FF9999")) +
+  geom_line(aes(y = 30 , colour="black", linetype = "2"))+
+  
+
+  labs(title = "Piglet 2334: Blood pressure over time",
+       caption = "Experiment started on the 30/10/2018",
+       y = "Blood Pressure (mmHg)")
+
+  
+  #geom_tile(aes(fill = rescale),----
+# High potential to make a heat map that mirros the temperature in the backdround or as a rug along the bottom
+
+#+     colour = "white") + scale_fill_gradient(low = "white",
+#+     high = "steelblue"))
+
+```

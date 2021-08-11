@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Generic - Hyperspace by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+
+
+	<!-- Header -->
+	<header id="header">
+		<a href="index.html" class="title">EEG annotation automation</a>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="background.html">HIE</a></li>
+				<li><a href="eeg.html" class="active">EEG annotation</a></li>
+				<li><a href="eeg_methods.html">Methods</a></li>
+				<li><a href="Copy_of_SVM_v1_awal002Loss.html">Support vector machine</a></li>
+				<li><a href="pigletEEG.html">Neural Network</a></li>
+				<li><a href="rnneeg.html">Convolutional Neural Network</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Machine learning for the annotation of EEG</h1>
+				<span class="image fit"><img src="images/pic04.jpg" alt="" /></span>
+				<blockquote> The code for the models developed here are provided in the links above. Manuscript in preparation to be submitted to the Journal of Signal Processing </blockquote>
+
+				<h2> Background: </h2>
+
+				<p> Hypoxic-Ischaemic injury in the neonate manifests various electroencephalographic patterns that correlate with severity of encephalopathy. Therefore, when testing novel therapeutic interventions, descriptive statistics of the various EEG
+					background patterns may provide useful information in the final evaluation of a new intervention (Figure 1). In practice, this requires visual inspection and annotation by a trained observer, a job that is both time consuming and very
+					tedious. Recent advances in machine learning now permit the development of automated methods for EEG annotation and many have been published. Many of these however, are not able to separate burst from seizure. Here have optimised a
+					multiclass support vector machine (SVM) to retrospectively classify EEG patterns across five categories typically seen in anaesthetised HI-injured piglets: Normal background, burst, suppression, seizure and artefact. </p>
+				<p>TLDR; Annotation of EEGs is both highly time consuming and positively soul destroying.
+				</p>
+
+				<figure>
+					<center><img src="images/EEG/EEGex.png" width="1000" alt="Manually annotated EEG">
+						<figcaption>Figure 1. Example of manually annotated EEG waveforms</figcaption>
+
+				</figure>
+
+				<div class="col-6 col-12-medium">
+					<h3>Create a automated EEG annotation workflow to :</h3>
+					<ol>
+						<li>Automatically mark artefact for removal</li>
+						<li>Automatically mark seizures for quantification seizure burden</li>
+						<li>Automatically mark burst and supression pattern</li>
+					</ol>
+					</p>
+
+
+					<hr>
+
+					<h2>Methods:</h2>
+
+
+					<h3> Classification algorithms </h3>
+
+					<p> Multi-class Support Vector Machine </p>
+					<p>Simple Neural Network</p>
+					<p>Convolutional Neural Network</p>
+
+					<h2> Results: </h2>
+
+					The best performing model was the SVM.
+
+					SVM K fold cross validation loss = 0.0014 (90% train / 10% test, at k = 10)
+
+					<p>This corresponds to approximately one misclassified second every 18 minutes!</p>
+
+					<figure>
+						<center><img src="images/EEG/Picture2.png" width="1000" alt="EEG methods">
+							<figcaption>Figure 3. Confusion matrix demonstrates mistakes are evenly distributed across the classifications.</figcaption>
+
+					</figure>
+
+
+
+					<hr>
+					<h2> Significance: </h2>
+					<p> To our knowledge this is the highest performing multiclass support vector machine to date. This is a highly accurate tool for clinical use and remains robust across species. Implementation of this tool would greatly reduce the time and
+						expertise required to perform a seizure burden analysis. </p>
+
+
+				</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; Untitled. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

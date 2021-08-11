@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Hyperspace by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">EEG annotation automation</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="background.html">Background</a></li>
+						<li><a href="eeg.html">EEG annotation</a></li>
+						<li><a href="eeg_methods.html" class="active" >Methods</a></li>
+						<li><a href="Copy_of_SVM_v1_awal002Loss.html">Support vector machine</a></li>
+						<li><a href="pigletEEG.html">Neural Network</a></li>
+						<li><a href="rnneeg.html">Convolutional Neural Network</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+
+							<h1> Methods </h1>
+
+							<figure>
+								<center><img src="images/EEG/baby_Lucas_s.jpg" width="1000" alt="Manually annotated EEG">
+									<figcaption>Figure 1. 10-20 EEG recording cap used in this experiment.</figcaption>
+
+							</figure >
+				<h1> Database </h1>
+								The data was collected from 12-channel EEG signals continuously recorded from 40 newborns admitted to the NICU of Royal Brisbane and Women’s Hospital, Brisbane, Australia. Neonates ≥35 weeks gestational age (GA) were enrolled for EEG monitoring if they had continued need for resuscitation after birth; any clinical evidence of encephalopathy, or seizures developed within the first 72 h of life This study was conducted with approval from the Clinical Research Ethics Committees of the Royal Brisbane and Women’s Hospital, Brisbane, Australia. Written, informed consent was obtained from at least one parent of each neonate who participated in this study.
+
+								After skin preparation, EEG recording was undertaken using 12 Ag/AgCl electrodes placed according to the international 10–20 standard. Monopolar recordings were collected from F3, F4, C3, C4, P3, P4, O1, O2, T3, T4, T5, T6 positions on the scalp of the newborns using a MEDELEC Profile System (Medelec, Oxford Instruments, UK). Different EEG background patterns as well as seizures and artefacts were marked by two paediatric neurologists. The recordings were annotated according to the generalized pattern across the multiple channels and focal activities were ignored. This database contains artefacts produced by the random movement of the subjects, electrode contact, electrocardiogram, respiration, eye blinking and different interference in the NICUs. These different types of artefacts are generalized and regarded as ‘artefact’ class in this study.
+
+								<h2> Pre-processing </h2>
+								The DC component was removed then band pass filtered in [0.5 - 30] Hz. Each channel is then down-sampled from 256 Hz to 64 Hz and then segmented into 1 s epochs. A total of 134 features were extracted between the time-domain, frequency-domain and time-frequency domain for each recording epoch.
+
+								<figure>
+									<center><img src="images/EEG/features.png" width="1000" alt="Manually annotated EEG">
+										<figcaption>Table 1. Features generated</figcaption>
+
+								</figure >
+
+							<h2>	Model optimisation </h2>
+
+							<figure>
+								<center><img src="images/EEG/data.png" width="1000" alt="Manually annotated EEG">
+									<figcaption>Figure 2. Data structure</figcaption>
+
+							</figure >
+
+								<h2> SVM </h2>
+									A Gaussian kernel function was selected and kernel scale was set to 25. L1 soft-margin minimisation by quadratic programming was implemented and box constraints set to 1000. Classification error was calculated by resubstitution and 10-fold cross validation was performed.
+
+									<h2> NN </h2>
+								<p>	NN structure was as follows:
+										134 -> 40 -> 40 -> 5 </p>
+
+										Trained over 1000 permutations
+
+
+								<h2>Classification Performance Measures </h2>
+								In the epoch-based approach, classification performance is computed by comparing the detector outcome for a given epoch to the neurologist marking of the same epoch. This type of accuracy is greatly influenced by the neurologist’s precision with respect to duration, onset, and offset of particular patterns. The detector performance using epoch-based classifications is evaluated in terms of:
+								Sensitivity=  (True Positive)/(True Positive+False Negative)  ×100 %
+
+								Specificity=  (True Positive)/(False Positive+True Negative)
+
+								Precision=  (True Positive)/(True Positive+False Positive)  ×100 %
+
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

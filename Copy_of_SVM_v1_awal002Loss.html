@@ -1,0 +1,287 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Copy_of_SVM_v1_awal002Loss</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-05"><meta name="DC.source" content="Copy_of_SVM_v1_awal002Loss.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">tic
+x = squeeze(fullList(:,1,:,:));
+y = x(:,1);
+
+x = x(:,[2:135]); <span class="comment">% kfoldloss = 0.0014!!!</span>
+
+size(x)
+x = squeeze(reshape(x,length(y),1,[]));
+size(x)
+
+
+<span class="comment">%generate the test and training sets</span>
+<span class="comment">%dataset = randsample(length(y),4000);</span>
+ytrain = y;
+xtrain = x;
+
+<span class="comment">% Test dataset</span>
+<span class="comment">%dataset = randsample(length(y),1200);</span>
+
+disp(<span class="string">'finished squeezing the data to fit'</span>)
+<span class="comment">% Train an ECOC multiclass model using the default options.</span>
+
+template = templateSVM(<span class="string">'standardize'</span>, true,  <span class="string">'KernelFunction'</span> ,<span class="string">'gaussian'</span>, <span class="string">'KernelScale'</span>, 25, <span class="string">'Solver'</span>, <span class="string">'L1QP'</span>, <span class="string">'SaveSupportVectors'</span>, <span class="string">'on'</span>, <span class="string">'BoxConstraint'</span>, 1000); <span class="comment">% isLoss = 0.000, Kfoldloss = 0.0189</span>
+
+
+<span class="comment">%Fit model</span>
+
+params = hyperparameters(<span class="string">'fitcecoc'</span>,xtrain,ytrain,<span class="string">'svm'</span>);
+params(2).Range = [1e3,1e5]
+params(3).Range = [1,1e4]
+params = params(3)
+Mdl = fitcecoc(xtrain,ytrain, <span class="string">'Learners'</span>,template)
+
+<span class="comment">%[Mdl,HyperparameterOptimizationResults] = fitcecoc(xtrain,ytrain, 'Learners',template, 'OptimizeHyperparameters',params,'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus','MaxObjectiveEvaluations',200))</span>
+</pre><pre class="codeoutput">
+ans =
+
+       35540         134
+
+
+ans =
+
+       35540         134
+
+finished squeezing the data to fit
+
+params = 
+
+  6&times;1 optimizableVariable array with properties:
+
+    Name
+    Range
+    Type
+    Transform
+    Optimize
+
+
+params = 
+
+  6&times;1 optimizableVariable array with properties:
+
+    Name
+    Range
+    Type
+    Transform
+    Optimize
+
+
+params = 
+
+  optimizableVariable with properties:
+
+         Name: 'KernelScale'
+        Range: [1 10000]
+         Type: 'real'
+    Transform: 'log'
+     Optimize: 1
+
+
+Mdl = 
+
+  ClassificationECOC
+             ResponseName: 'Y'
+    CategoricalPredictors: []
+               ClassNames: [1 2 3 4 5]
+           ScoreTransform: 'none'
+           BinaryLearners: {10&times;1 cell}
+               CodingName: 'onevsone'
+
+
+</pre><img vspace="5" hspace="5" src="Copy_of_SVM_v1_awal002Loss_01.png" alt=""> <p><tt>Mdl</tt> is a <tt>ClassificationECOC</tt> model.  By default, <tt>fitcecoc</tt> uses SVM binary learners, and uses a one-versus-one coding design. You can access <tt>Mdl</tt> properties using dot notation.</p><p>Display the coding design matrix.</p><pre class="codeinput">Mdl.ClassNames
+CodingMat = Mdl.CodingMatrix
+</pre><pre class="codeoutput">
+ans =
+
+     1
+     2
+     3
+     4
+     5
+
+
+CodingMat =
+
+     1     1     1     1     0     0     0     0     0     0
+    -1     0     0     0     1     1     1     0     0     0
+     0    -1     0     0    -1     0     0     1     1     0
+     0     0    -1     0     0    -1     0    -1     0     1
+     0     0     0    -1     0     0    -1     0    -1    -1
+
+</pre><p>A one-versus-one coding design on three classes yields three binary learners.  Columns of <tt>CodingMat</tt> correspond to learners, and rows correspond to classes.  The class order corresponds to the order in <tt>Mdl.ClassNames</tt>. For example, <tt>CodingMat(:,1)</tt> is <tt>[1; -1; 0]</tt> and indicates that the software trains the first SVM binary learner using</p><p>You can access each binary learner using cell indexing and dot notation.</p><pre class="codeinput">Mdl.BinaryLearners{1}                <span class="comment">% The first binary learner</span>
+</pre><pre class="codeoutput">
+ans = 
+
+  CompactClassificationSVM
+             ResponseName: 'Y'
+    CategoricalPredictors: []
+               ClassNames: [-1 1]
+           ScoreTransform: 'none'
+                    Alpha: [225&times;1 double]
+                     Bias: 0.4210
+         KernelParameters: [1&times;1 struct]
+                       Mu: [1&times;134 double]
+                    Sigma: [1&times;134 double]
+           SupportVectors: [225&times;134 double]
+      SupportVectorLabels: [225&times;1 double]
+
+
+</pre><p>Compute the in-sample classification error.</p><pre class="codeinput">isLoss = resubLoss(Mdl)
+</pre><pre class="codeoutput">
+isLoss =
+
+     0
+
+</pre><p>The classification error is small, but the classifier might have been overfit.  You can cross-validate the classifier using <tt>crossval</tt>.</p><pre class="codeinput">Cval = crossval(Mdl);
+kfoldloss = kfoldLoss(Cval)
+
+ [validationPredictions, validationScores] = kfoldPredict(Cval);
+ confmat=confusionmat(xtrain(:,1),validationPredictions);
+
+toc
+</pre><pre class="codeoutput">
+kfoldloss =
+
+    0.0014
+
+Elapsed time is 32587.987860 seconds.
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+tic
+x = squeeze(fullList(:,1,:,:));
+y = x(:,1);
+
+x = x(:,[2:135]); % kfoldloss = 0.0014!!!
+
+size(x)
+x = squeeze(reshape(x,length(y),1,[]));
+size(x)
+
+
+%generate the test and training sets
+%dataset = randsample(length(y),4000);
+ytrain = y;
+xtrain = x;
+
+% Test dataset
+%dataset = randsample(length(y),1200);
+
+disp('finished squeezing the data to fit')
+% Train an ECOC multiclass model using the default options.
+
+template = templateSVM('standardize', true,  'KernelFunction' ,'gaussian', 'KernelScale', 25, 'Solver', 'L1QP', 'SaveSupportVectors', 'on', 'BoxConstraint', 1000); % isLoss = 0.000, Kfoldloss = 0.0189 
+
+
+%Fit model
+
+params = hyperparameters('fitcecoc',xtrain,ytrain,'svm');
+params(2).Range = [1e3,1e5]
+params(3).Range = [1,1e4]
+params = params(3)
+Mdl = fitcecoc(xtrain,ytrain, 'Learners',template)
+
+%[Mdl,HyperparameterOptimizationResults] = fitcecoc(xtrain,ytrain, 'Learners',template, 'OptimizeHyperparameters',params,'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus','MaxObjectiveEvaluations',200))
+
+
+%%
+% |Mdl| is a |ClassificationECOC| model.  By default, |fitcecoc| uses SVM
+% binary learners, and uses a one-versus-one coding design. You can access
+% |Mdl| properties using dot notation.
+%%
+% Display the coding design matrix.
+Mdl.ClassNames
+CodingMat = Mdl.CodingMatrix
+%% 
+% A one-versus-one coding design on three classes yields three binary 
+% learners.  Columns of |CodingMat| correspond to learners, and rows 
+% correspond to classes.  The class order corresponds to the order
+% in |Mdl.ClassNames|. For example, |CodingMat(:,1)| is |[1; -1; 0]| and  
+% indicates that the software trains the first SVM binary learner using
+%%
+% You can access each binary learner using cell indexing and dot notation.
+Mdl.BinaryLearners{1}                % The first binary learner
+%%
+% Compute the in-sample classification error.
+isLoss = resubLoss(Mdl)
+%%
+% The classification error is small, but the classifier might have been
+% overfit.  You can cross-validate the classifier using |crossval|.
+Cval = crossval(Mdl);
+kfoldloss = kfoldLoss(Cval)
+
+ [validationPredictions, validationScores] = kfoldPredict(Cval);
+ confmat=confusionmat(xtrain(:,1),validationPredictions);
+
+toc
+
+##### SOURCE END #####
+--></body></html>

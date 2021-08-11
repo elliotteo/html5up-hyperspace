@@ -1,0 +1,79 @@
+<pre><code>
+
+chmod +x preproc.sh
+
+echo Please insert the piglet number you would like to process.
+
+read XXXX
+
+#CD directory
+cd /s/UQCCR-ColditzProjects/Bjorkman_other/Bjorkman_StemCell/SC_8_day/SC_Rwd/MRI_files/15023/piglet$XXXX/150mmCoil_piglet/extract
+
+echo Please insert the numbers of the primary diffusion files.
+
+read dif1
+echo Confirm b3000 primary diffusion index is $dif1
+
+read dif2
+echo Confirm b1500 primary diffusion index is $dif2
+
+read dif3
+echo Confirm b700 primary diffusion index is $dif3
+
+echo Are these correct? [Y/N]
+read ans1
+
+# convert from DICOM to mrtrix format (mif)
+mrconvert $dif1 diffusion_b3000.mif
+mrconvert $dif2 diffusion_b1500.mif
+mrconvert $dif3 diffusion_b700.mif
+
+#prepare 1 for topup
+
+echo Please insert the index number of the b0 files.
+
+read b1
+echo Confirm first b0 index is $b1
+
+echo Is this correct? [Y/N]
+read ans2
+
+# get the b0_PA file (acquired separately)
+mrconvert $b1 b0_PA.nii.gz
+
+# upsample the b0_PA file
+mrresize b0_PA1.nii.gz -scale 2 b0_PA1_upsampled.nii.gz
+
+# merge the 3 shells
+mrcat diffusion_b3000.mif diffusion_b1500.mif diffusion_b700.mif diffusion_3shell.mif
+
+dwidenoise diffusion_3shell.mif diffusion_3shell.mif -noise noise.mif
+
+#upsample the data
+mrresize diffusion_3shell.mif -scale 2 diffusion_3shell_upsampled.mif
+
+# convert to nifti + bvecs + bvals format
+mrconvert diffusion_3shell.mif -export_grad_fsl diffusion_3shell.bvec diffusion_3shell.bval diffusion_3shell.nii.gz
+
+# prepare 2 for topup
+# get the b0_AP file (first volume from combined diffusion file)
+mrconvert diffusion_3shell.mif -coord 3 0 b0_AP.nii.gz
+
+# combine the b0_AP and b0_PA files
+mrcat b0_AP.nii.gz b0_PA.nii.gz b0_combined.nii.gz
+
+# get the acqp.txt file
+echo -e "0 1 0 0.06\n0 -1 0 0.06" >acqp.txt
+
+# prepare the index files for eddy
+for ((i = 1; i <= 117; i++)); do echo 1 >>index.txt; done
+
+# run topup
+topup --imain=b0_combined.nii.gz --datain=acqp.txt --config=b02b0.cnf --out=topup --iout=b0_combined_unwarped.nii.gz -v
+
+#draw brainsmasks on topup output image (first volume or average)
+itksnap
+
+mrmath b0_combined_unwarped.nii.gz -axis 3 mean nodif.nii.gz
+
+</pre></code>

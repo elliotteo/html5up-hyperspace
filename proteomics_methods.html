@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Hyperspace by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Methods</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="background.html">HIE</a></li>
+						<li><a href="proteomics.html"> Proteomics analysis</a></li>
+						<li><a href="proteomics_methods.html"class="active"> Methods</a></li>
+						<li><a href="proteomics_discussion.html"> Discussion </a></li>
+						<li><a href="proteomics_MD_full.html" >R Markdown</a></li>
+						<li><a href="https://proteomesci.biomedcentral.com/">Link to publication</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+
+							<h1> SWATH </h1>
+
+							<figure>
+								<center><img src="images/proteomics/TTOF.jpg" width="700" alt="Clinical manifestations of HIE">
+									<figcaption>Triple-TOF 5600 mass spectrometer used in this experiment</figcaption>
+									<p>(source:https://www.uochb.cz/en/instrumentation/12/sciex-tripletoftm-5600) </p>
+								</figure>
+
+
+					<h2> Cell Lysis </h2>
+					400mg of frozen brain tissue from the parasagittal frontal cortex was homogenised in a sterile petri dish using a sterile scalpel. Cell lysis buffer (10mM Tris, 0.15M NaCl, 1mM EDTA, 1% TritonX-114, pH 7.4) was added to the sample and homogenised for 30 seconds and 120 seconds on ice for three cycles to keep the sample cold. Samples were transferred to a sterile Eppendorf tube and gently rotated for 2 hours at 4<span>&#176;</span>C. Samples were then centrifuged at 17,000G for 40 minutes and the supernatant transferred to a sterile tube for protein quantification.
+<hr />
+					<h2>Protein Quantification</h2>
+					Sample total protein was quantified using the Pierce™ BCA Protein Assay Kit according to the manufacturer's instructions. Absorbance was measured at a wavelength of 562nm using a Spark photometer and quantified against a bovine serum albumin (BSA) standard curve. Samples were aliquoted and stored at -80<span>&#176;</span>C until sample preparation.
+<hr />
+				<h2>	Sample Preparation</h2>
+					Cell lysates containing 200<span>&mu;<span>g of protein was mixed with 100<span>&mu;<span>l Buffer I (6M guanidine chloride, 50mM Tris ph8, 10mM dithiothreitol (DTT)) in Lobind tubes (Eppendorf, USA) and incubated at 30<span>&#176;</span>C for 30 minutes. After addition of 2.5<span>&mu;<span>L 1M acrylamide, the samples were incubated at 30<span>&#176;</span>C for 30 minutes, then DTT was added to give a final DTT concentration of 15mM. The reduced and alkylated protein solution was then transferred to a 10 KDa cut-off Amicon column (Millipore, Germany) and placed in collection tubes. The Amicon column was centrifuged at room temperature (RT) at 18,000G for 30 minutes, after which 200<span>&mu;<span>l 100mM ammonium bicarbonate was added. The columns were centrifuged at RT at 18,000G for another 30 minutes, followed by addition of 130μl 100mM ammonium bicarbonate and 4μg trypsin (Promega, USA) to digest the proteins on the membrane of the column. The columns were incubated at 37<span>&#176;</span>C overnight before an additional application with 4<span>&mu;<span>g of trypsin for 4 hours, then centrifuged in a new collection tube at 18000xG for at least 30 minutes. Then 50<span>&mu;<span>l 0.5M sodium chloride was added into the spin column, which was centrifuged into the same collection tube for 30 minutes to elute the remaining digested peptides.
+<hr />
+					<h2>Sample Desalting</h2>
+					Plates were wet with acetonitrile and spun at 40Gs. 200μL of 0.1% Trifluoroacetic acid (TFA) was added to the plates and centrifuged at 40Gs. Then 0.1% formic acid (FA) was added to the samples. Samples were washed three times with acetonitrile. Solvents were removed by evaporation and samples were reconstituted in 0.1% FA.
+<hr />
+					<h2>SWATH Data Collection</h2>
+					Desalted samples were injected into the nano-high performance liquid chromatography (HPLC) system (Prominence, Shimadzu, Kyoto, Japan) coupled with Triple-TOF 5600 mass spectrometer (ABSCIEX, Redwood City, CA) in random order. An isolation width of 26Da window (which includes 1Da for the window overlap) was used to cover across the mass range 400–1250m/z. The dwell time for the SWATH-MS was 95.1 ms. A total of 34 overlapping windows were constructed. The collision energy for each window was based on the calculation for a charge 2 + ion centred upon the window with a collision energy spread of 15 eV using Analyst software (ABSCIEX, Redwood City, CA). Peptides from each desalted sample were pooled to generate a comprehensive ion library for each batch using information-dependent acquisition (IDA). The IDA data were searched against the Uniprot Sus scrofa reference proteome, which was released in December 2019 and included 49779 proteins and the Uniprot Homo Sapien reference proteome, released in March 2020 and contains 75004 proteins. The final group file, including comprehensive precursor masses and fragment ions library, was generated through ProteinPilot 5.0 software
+
+<hr />
+					<h2>Protein Identification</h2>
+					The parameters for the ID search were as follows: sample type, identification; cysteine alkylation, acrylamide; digestion, trypsin; detected protein threshold, 0.05. The target-decoy approach was used to calculate the global and local false discovery rate (FDR).
+<hr />
+					<h2>SWATH Data Analysis </h2>
+					The ProteinPilot search file was imported into PeakView software v2.1 (ABSCIEX, Redwood City, CA) to create an ion library. Peak area of selected fragment ions from targeted peptides was calculated based on the extracted ion chromatograms. Seven spectral peaks across the 70 minutes gradient time were chosen for peak alignment. Shared peptides and peptides with a confidence level below 99% were not imported into the ion library. The ion mass tolerance was set to 50 ppm. The number of peptides for each protein was set to 6; the number of ions for each peptide was set to 6; and the total area sums method was used to normalise the data.
+			<hr />
+					<h2>Statistical Analysis</h2>
+					The statistical analyses were conducted using R software (R version 4.0.2 (2020-06-22)). Principal component analysis (PCA) was used to identify possible confounding factors. One-way analysis of variance with Tukey Honest Significance Difference test was applied to identify the difference between groups. Volcano plots were used to show the overall results of SWATH analysis by displaying the log fold change and statistical significance of the differences in proteins between groups. Heat maps were generated, arranging the columns with hierarchical clustering using the McQuitty method and rows using Pearson distance.  Adjustment for multiple comparisons was performed using the Benjamini-Hochberg technique. A p-value of less than 0.1 was significant for inclusion into pathway analysis.
+<hr />
+					<h2>Bio-informatic analysis</h2>
+					Proteins considered significant were compiled in a list. Each of the Protein IDs were converted to their EntrezID using the bitr function from the cluster profiler package. Gene Ontology and Reactome functional enrichment were performed using the cluster profiler package. Enrichment analysis was performed on all gene sub ontologies, p-values were adjusted using the Benjamini-Hochberg method, p-value cut-off was set to 0.05, and the q-value cut-off was set to 0.2.
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

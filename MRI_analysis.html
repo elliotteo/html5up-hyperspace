@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Hyperspace by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Methods</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="background.html">Background</a></li>
+						<li><a href="MRI_methods.html" >Scanning methods</a></li>
+						<li><a href="MRI_analysis.html" class="active">Analysis Methods</a></li>
+						<li><a href="Teo_preproc.html">bash scripts</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+
+							<h1> Preproessing for diffusion weighted imaging sequences</h1>
+
+<blockquote>Bash script used for MRI can be found in the link above. Below is a summary of the preprocessing pipeline.</blockquote>
+
+
+							<h2>Pre-processing</h2>
+							Images from the Seimens scanner in DICOM format were transferred to a Linux workstation and subsequently converted to NIfTI formate using the mrconvert function (MRtrix3). The b = 0 weighted image and its complimentary reverse phase direction were combined to calculate an image distorition map using FSL Topup (version 5.0.6, FMRIB’s library, 2013) that was subsequently used to correct for susceptibility-induced distortions. Brain masks were manually drawn from all piglets on the average of the first b = 0 and reverse phase encoded image using ITKsnap. Individual diffusion weighted images were then corrected for head movement between DWi volumes and the geometric distoritions due to magnetic suseptibillity, inhomogenatities and eddy currents using FSL eddy. After this step, a mean b = 3000 DWI map was created for better spatial contrast, after which the brain mask delineation was repeated for each piglet to obtain a more accurate brain mask.
+</p>
+
+
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
